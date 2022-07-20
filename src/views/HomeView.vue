@@ -1,18 +1,33 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <div>
+      Message <input type="text" v-model="message" />
+      <button @click="sendMessage">Send</button>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import SocketioService from "../services/socketio.service.js";
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+  name: "HomeView",
+  created() {
+    SocketioService.setupSocketConnection();
+  },
+  beforeUnmount() {
+    SocketioService.disconnect();
+  },
+  data() {
+    return {
+      message: "",
+    };
+  },
+  methods: {
+    sendMessage() {
+      SocketioService.sendMessage(this.message);
+    },
+  },
+};
 </script>
