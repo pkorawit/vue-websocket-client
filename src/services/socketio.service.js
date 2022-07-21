@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 
 class SocketioService {
-    
+
     socket;
     constructor() { }
 
@@ -11,7 +11,7 @@ class SocketioService {
     }
 
     sendMessage(message){
-        this.socket.emit('message', message);
+        this.socket.emit('outgoing_message', message);
     }
 
 }
